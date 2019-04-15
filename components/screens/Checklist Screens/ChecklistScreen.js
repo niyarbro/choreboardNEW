@@ -22,7 +22,8 @@ export default class ChecklistScreen extends React.Component {
             viewMyChoresList: true, //default list view
             viewOpenChoresList: false,
             activeSections: [],
-            supported: false
+            supported: false,
+            tag: {}
         };
     }
 
@@ -63,7 +64,21 @@ export default class ChecklistScreen extends React.Component {
             .catch(err => {
                 console.log("Error in enabling NFC.");
                 console.log(err);
-            });      
+            });
+            
+        NfcManager.registerTagEvent(this.tagDiscovered)
+            .then(result => {
+                console.log('Detecting...', result);
+            })
+            .catch(err => {
+                console.warn('Detecting failed!', err);
+            });
+    }
+
+    tagDiscovered = tag => {
+        console.log('TAG DISCOVERED!!!');
+        console.log(tag);
+        this.setState({tag});
     }
 
     setSections = (sections) => {
