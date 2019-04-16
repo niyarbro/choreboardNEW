@@ -25,7 +25,7 @@ export default class TopSubBar extends React.Component {
       <View style = {styles.container}>
         <View style = {styles.profileContainer}>
           <View style = {styles.profilePictureContainer}>
-            <Image style = {styles.profilePicture} source = {require('../../images/default.jpg')}></Image>
+            <Image style = {styles.profilePicture} source = {require('../../images/default-svg.png')}></Image>
             <Text style = {styles.welcome}>Welcome, Blake!</Text>
           </View>
           <TouchableOpacity onPress = {() => {return alert("What's this menu?");}} style = {styles.icon}>
@@ -34,10 +34,10 @@ export default class TopSubBar extends React.Component {
         </View>
         <View style = {styles.barContainer}>
           <Text style = {styles.subtitle}>TODAY'S CHORES:</Text>
-          <ProgressBarAnimated width = {barWidth} value = {this.state.progressToday} backgroundColorOnComplete = '#009986' />
+          <ProgressBarAnimated width = {barWidth} value = {this.state.progressToday} backgroundColor = 'orange' backgroundColorOnComplete = '#009986' />
           <Text style = {styles.subtitleFraction}>2/5</Text>
           <Text style = {styles.subtitle}>TOTAL WEEKLY CHORES:</Text>
-          <ProgressBarAnimated width = {barWidth} value = {this.state.progressWeekly} backgroundColorOnComplete = '#009986' />
+          <ProgressBarAnimated width = {barWidth} value = {this.state.progressWeekly} backgroundColor = 'orange' backgroundColorOnComplete = '#009986' />
           <Text style = {styles.subtitleFraction}>15/22</Text>
         </View>
       </View>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'silver',
+    backgroundColor: '#3296ca',
     width: '100%'
   },
   welcome: {
@@ -91,8 +91,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   profilePicture: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
+    tintColor: 'white',
     borderRadius: 360,
     position: 'relative',
     alignSelf: 'flex-start',

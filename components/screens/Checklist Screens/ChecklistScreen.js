@@ -4,7 +4,7 @@ import {StyleSheet, KeyboardAvoidingView, ScrollView, View,
 import * as Animatable from 'react-native-animatable';
 import Accordion from 'react-native-collapsible/Accordion';
 import Icon from 'react-native-vector-icons/AntDesign';
-import NfcManager, {Ndef, NfcTech, ByteParser} from 'react-native-nfc-manager';
+import NfcManager from 'react-native-nfc-manager';
 
 import TopBar from '../../mainbars/TopBar';
 import TopSubBar from '../../mainbars/TopSubBar';
@@ -18,55 +18,20 @@ export default class ChecklistScreen extends React.Component {
 
     constructor(props) {
         super(props);
+        this._isMounted = false;
         this.state = {
             viewMyChoresList: true, //default list view
             viewOpenChoresList: false,
             activeSections: [],
             supported: false,
-            tag: {}
+            tag: {},
+            stationID: ''
         };
     }
 
     componentDidMount() {
-        NfcManager.isSupported()
-            .then(result => {
-                console.log("componentDidMount 'supported' state after isSupported call: " + result);
-                this.setState({supported: result});
-                if (result) {
-                    this.startNFC();
-                }
-            });
-    }
-
-    componentWillUnmount() {
-        if (this._stateChangedSubscription) {
-            this._stateChangedSubscription.remove();
-        }
-    }
-
-    startNFC() {
-        //starting
-        NfcManager.start()
-            .then(result => {
-                console.log("NFC started!");
-            })
-            .catch(err => {
-                console.log("Nope.");
-                console.log(err);
-            });
-
-        //checking if NFC is enabled
-        NfcManager.isEnabled()
-            .then(result => {
-                console.log("NFC is enabled!");
-                console.log(result);
-            })
-            .catch(err => {
-                console.log("Error in enabling NFC.");
-                console.log(err);
-            });
-            
-        NfcManager.registerTagEvent(this.tagDiscovered)
+        this._isMounted = true;
+        this._isMounted && NfcManager.registerTagEvent(this.tagDiscovered)
             .then(result => {
                 console.log('Detecting...', result);
             })
@@ -75,10 +40,21 @@ export default class ChecklistScreen extends React.Component {
             });
     }
 
+    componentWillUnmount() {
+        if (this._stateChangedSubscription) {
+            this._stateChangedSubscription.remove();
+        }
+        this._isMounted = false;
+    }
+
     tagDiscovered = tag => {
         console.log('TAG DISCOVERED!!!');
-        console.log(tag);
-        this.setState({tag});
+        console.log(tag.id);
+        this.setState({
+            tag: tag,
+            stationID: tag.id
+        });
+        this.props.navigation.navigate('CheckIn', {stationID: this.state.stationID});
     }
 
     setSections = (sections) => {
@@ -162,7 +138,7 @@ export default class ChecklistScreen extends React.Component {
                 <View style = {styles.rowContainer}>
                     <TouchableOpacity
                         style = {[button.container, {
-                            backgroundColor: this.state.viewMyChoresList ? '#009986' : 'lightgray' 
+                            backgroundColor: this.state.viewMyChoresList ? 'orange' : 'lightgray' 
                         }]}
                         activeOpacity = {.25}
                         onPress = {() => {this.setState({
@@ -177,7 +153,7 @@ export default class ChecklistScreen extends React.Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style = {[button.container, {
-                            backgroundColor: this.state.viewOpenChoresList ? '#009986' : 'lightgray'
+                            backgroundColor: this.state.viewOpenChoresList ? 'orange' : 'lightgray'
                         }]}
                         activeOpacity = {.25}
                         onPress = {() => {this.setState({
@@ -209,13 +185,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        backgroundColor: 'gray',
+        backgroundColor: 'white',
         width: '100%',
         flexDirection: 'row',
         padding: 5
     },
     header: {
-        backgroundColor: 'lightgray',
+        backgroundColor: '#3296ca',
         padding: '3%',
         width: '100%'
     },

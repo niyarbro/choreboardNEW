@@ -1,7 +1,7 @@
 export var chores = [
     {
-        label: 'Chore 1',
-        value: 'Chore 1'
+        label: 'Wash dishes',
+        value: 'Wash dishes'
     },
     {
         label: 'Chore 2',

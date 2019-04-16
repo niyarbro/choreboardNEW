@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, KeyboardAvoidingView, ScrollView, View, Text, TouchableOpacity} from 'react-native';
 import {Dropdown} from 'react-native-material-dropdown';
 import {TextField} from 'react-native-material-textfield';
-import {Header} from 'react-navigation';
+import NfcManager from 'react-native-nfc-manager';
 
 import TopBar from '../../mainbars/TopBar';
 import TopSubBar from '../../mainbars/TopSubBar';
@@ -12,11 +12,16 @@ import {chores} from '../../data/Chores';
 
 export default class CheckInScreen extends React.Component {
 
+    static navigationOptions = {
+        header: null
+    }
+
     constructor(props) {
         super(props);
         this.state = {
             chore: '',
             otherChore: '',
+            stationID1: '',
             buttonIsDisabled: true,
             textFieldIsDisabled: true
         };
@@ -24,17 +29,14 @@ export default class CheckInScreen extends React.Component {
 
     render() {
         return (
-            <KeyboardAvoidingView 
-                keyboardVerticalOffset = {Header.HEIGHT + 15}
-                style = {styles.container}
-                behavior = 'padding'>
+            <KeyboardAvoidingView style = {styles.container}>
                 <TopBar />
                 <TopSubBar />
 
                 <View style = {styles.headerContainer}>
                     <View style = {styles.rowContainer}>
-                        <Text style = {styles.headerText}>NEW CHECK-IN</Text>
-                        <TouchableOpacity onPress = {() => this.props.navigation.navigate('Dashboard')}>
+                        <Text style = {styles.headerText}>NEW CHECK-IN FROM {this.props.navigation.state.params.stationID}</Text>
+                        <TouchableOpacity onPress = {() => this.props.navigation.navigate('Checklist')}>
                             <Icon name = 'close' size = {25}></Icon>
                         </TouchableOpacity>
                     </View>
@@ -43,7 +45,7 @@ export default class CheckInScreen extends React.Component {
                 <Text />
                 <ScrollView>
                     <Text style = {styles.placeText}>
-                        It looks like you've checked in at the <Text style = {styles.NFCtext}>[PLACE AFTER NFC SCAN]</Text>
+                        It looks like you've checked in at the <Text style = {styles.NFCtext}>kitchen sink</Text>
                         . Please select your chore:
                     </Text>
 
@@ -83,10 +85,24 @@ export default class CheckInScreen extends React.Component {
                             if (this.state.chore == 'Other (add a new chore)'
                                 && (this.state.otherChore != null || this.state.otherChore != '')) {
                                 console.log(this.state.otherChore + ' has started!');
-                                this.props.navigation.navigate('ChoreStopwatch', {chore: this.state.otherChore});
+                                NfcManager.unregisterTagEvent()
+                                    .then(result => {
+                                        console.log("Tag detection stopped.");
+                                        this.props.navigation.navigate('ChoreStopwatch', {
+                                            chore: this.state.otherChore,
+                                            stationID1: this.props.navigation.state.params.stationID
+                                        });
+                                    });
                             } else {
                                 console.log(this.state.chore + ' has started!');
-                                this.props.navigation.navigate('ChoreStopwatch', {chore: this.state.chore});
+                                NfcManager.unregisterTagEvent()
+                                    .then(result => {
+                                        console.log("Tag detection stopped.");
+                                        this.props.navigation.navigate('ChoreStopwatch', {
+                                            chore: this.state.chore,
+                                            stationID1: this.props.navigation.state.params.stationID
+                                        });
+                                    });
                             }
                         }}>
                         <Text style = {[button.text, {
@@ -125,7 +141,9 @@ const styles = StyleSheet.create({
     headerContainer: {
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
+        borderBottomColor: '#3296ca',
+        borderBottomWidth: 2,
         width: '100%',
         padding: '3%'
       },
@@ -139,7 +157,7 @@ const styles = StyleSheet.create({
         padding: '5%'
     },
     headerText: {
-        color: '#009986',
+        color: '#3296ca',
         alignSelf: 'flex-start',
         fontWeight: 'bold',
         fontSize: 25

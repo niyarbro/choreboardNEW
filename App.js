@@ -1,6 +1,8 @@
 import React from 'react';
 import {createAppContainer, createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import NfcManager from 'react-native-nfc-manager';
 
 import DashboardScreen from './components/screens/DashboardScreen/DashboardScreen';
 import ChecklistScreen from './components/screens/Checklist Screens/ChecklistScreen';
@@ -60,4 +62,43 @@ const AppContainer = createAppContainer(
     })
 );
 
-export default AppContainer;
+export default class App extends React.Component {
+
+    componentDidMount() {
+        NfcManager.isSupported()
+            .then(result => {
+                console.log("Is it supported? " + result);
+                NfcManager.start()
+                    .then(result => {
+                        console.log("NFC started!");
+                    })
+                    .catch(err => {
+                        console.log("Nope.", err);
+                    });
+                NfcManager.isEnabled()
+                    .then(result => {
+                        console.log("NFC is enabled!", result);
+                    })
+                    .catch(err => {
+                        console.log("Error in enabling NFC.", err);
+                    });
+            });
+    }
+    
+    componentWillUnmount() {
+        if (this._stateChangedSubscription) {
+            this._stateChangedSubscription.remove();
+        }
+    }
+
+    render() {
+        return(<AppContainer />);
+    }
+    
+}
+
+const styles = StyleSheet.create({
+    navigatorContainer: {
+        backgroundColor: '#fff',
+    }
+});

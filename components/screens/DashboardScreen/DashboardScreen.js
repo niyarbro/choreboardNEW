@@ -3,7 +3,6 @@ import {StyleSheet, KeyboardAvoidingView, FlatList, ScrollView} from 'react-nati
 
 import TopBar from '../../mainbars/TopBar';
 import TopSubBar from '../../mainbars/TopSubBar';
-import Header from './Header';
 import AwardsBar from './AwardsBar';
 
 import {Leaderboard} from './Leaderboard';
@@ -22,7 +21,6 @@ export default class DashboardScreen extends React.Component {
             <KeyboardAvoidingView style = {styles.container}>
                 <TopBar />
                 <TopSubBar />
-                <Header />
                 <AwardsBar />
                 <ScrollView>
                     <FlatList

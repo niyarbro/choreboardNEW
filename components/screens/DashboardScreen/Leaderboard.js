@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomColor: 'gray',
+        borderBottomColor: '#3296ca',
         borderBottomWidth: 1,
         width: '100%',
         padding: 13
@@ -27,8 +27,9 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start'
     },
     profilePicture: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
+        tintColor: '#3296ca',
         borderRadius: 360,
         position: 'relative'
     },
@@ -36,12 +37,12 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 20,
         fontWeight: 'bold',
-        color: 'gray',
+        color: '#3296ca',
         alignSelf: 'center'
     },
     nameText: {
         fontSize: 20,
-        color: 'gray',
+        color: '#3296ca',
         alignSelf: 'center',
         alignItems: 'center'
     },
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     },
     pointsText: {
         fontSize: 20,
-        color: 'gray',
+        color: '#3296ca',
         alignSelf: 'center',
         alignItems: 'center'
     }
@@ -66,7 +67,7 @@ export var Leaderboard = (props) => (
         <Text> </Text>
         <View style = {styles.otherHalfContainer}>
             <View style = {styles.profilePictureContainer}>
-                <Image style = {styles.profilePicture} source = {require('../../../images/default.jpg')}></Image>
+                <Image style = {styles.profilePicture} source = {require('../../../images/default-svg.png')}></Image>
                 <Text style = {styles.nameText}> {`${props.name.first} ${props.name.last}`}</Text>
             </View>
             <Text> </Text>

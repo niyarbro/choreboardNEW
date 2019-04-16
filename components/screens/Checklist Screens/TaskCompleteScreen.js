@@ -54,9 +54,11 @@ const styles = StyleSheet.create({
     headerContainer: {
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         width: '100%',
-        padding: '3%'
+        padding: '3%',
+        borderBottomColor: '#3296ca',
+        borderBottomWidth: 2
       },
     rowContainer: {
         alignItems: 'center',
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     },
     headerText: {
         flex: 1,
-        color: '#009986',
+        color: '#3296ca',
         alignSelf: 'flex-start',
         fontWeight: 'bold',
         fontSize: 25
