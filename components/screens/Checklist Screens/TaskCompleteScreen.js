@@ -4,14 +4,31 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 import TopBar from '../../mainbars/TopBar';
 import TopSubBar from '../../mainbars/TopSubBar';
+import firebase from 'react-native-firebase';
 
 export default class TaskCompleteScreen extends React.Component {
 
+  constructor() {
+    super();
+    this.ref = firebase.firestore().collection('progress');
+  }
     static navigationOptions = {
         header: null
     }
 
+    updateDatabase() {
+      //
+      var doc = this.ref.doc('zC1lDflQSHq0hLOhMT8b');
+      var data = doc.get();
+      console.log(data);
+      doc.set({
+        today: doc.data().today + 20,
+        weekly: (doc.data().weekly + (1/22)) * 100
+      });
+    }
+
     render() {
+        this.updateDatabase();
         return (
             <KeyboardAvoidingView style = {styles.container}>
                 <TopBar />
@@ -38,7 +55,6 @@ export default class TaskCompleteScreen extends React.Component {
                 <Text style = {styles.placeText}>
                     You have been awarded <Text style = {styles.NFCtext}>15</Text> points.
                 </Text>
-                
             </KeyboardAvoidingView>
         )
     }

@@ -2,24 +2,54 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, Dimensions, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
-
+import firebase from 'react-native-firebase';
 export default class TopSubBar extends React.Component {
 
-  state = {
-    progressToday: 40,
-    progressWeekly: 15/22 * 100,
-    progressWithOnComplete: 0, //not used yet
-    progressCustomized: 0 //not used yet
-  };
+  constructor() {
+    super();
+    this.ref = firebase.firestore().collection('progress');
+    this.state = {
+      today: 40,
+      weekly: 15/22 * 100,
+      loading: true
+    };
+    this.unsubscribe = null;
+  }
+
+  onDataUpdate(todayNumber, weeklyNumber) {
+    this.state.today = todayNumber;
+    this.state.weekly = weeklyNumber;
+  }
+
+  componentDidMount() {
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  onCollectionUpdate = (querySnapshot) => {
+  // TODO
+  console.log(querySnapshot.docs[0].data());
+  console.log(querySnapshot.docs[0].id);
+  this.setState({
+    today: querySnapshot.docs[0].data().today,
+    weekly: querySnapshot.docs[0].data().weekly
+    loading: false
+  });
+  }
 
   render() {
-
+    if (this.state.loading) {
+      return null;
+    }
     const barWidth = Dimensions.get('screen').width - 40;
     const progressCustomStyles = {
       backgroundColor: 'orange',
       borderRadius: 0,
       borderColor: 'blue'
-    };
+    }
 
     return (
       <View style = {styles.container}>
@@ -34,10 +64,10 @@ export default class TopSubBar extends React.Component {
         </View>
         <View style = {styles.barContainer}>
           <Text style = {styles.subtitle}>TODAY'S CHORES:</Text>
-          <ProgressBarAnimated width = {barWidth} value = {this.state.progressToday} backgroundColor = 'orange' backgroundColorOnComplete = '#009986' />
+          <ProgressBarAnimated width = {barWidth} value = {this.state.today} backgroundColor = 'orange' backgroundColorOnComplete = '#009986' />
           <Text style = {styles.subtitleFraction}>2/5</Text>
           <Text style = {styles.subtitle}>TOTAL WEEKLY CHORES:</Text>
-          <ProgressBarAnimated width = {barWidth} value = {this.state.progressWeekly} backgroundColor = 'orange' backgroundColorOnComplete = '#009986' />
+          <ProgressBarAnimated width = {barWidth} value = {this.state.weekly} backgroundColor = 'orange' backgroundColorOnComplete = '#009986' />
           <Text style = {styles.subtitleFraction}>15/22</Text>
         </View>
       </View>
