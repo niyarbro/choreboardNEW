@@ -19,13 +19,17 @@ export default class TaskCompleteScreen extends React.Component {
     updateDatabase() {
       //
       var doc = this.ref.doc('zC1lDflQSHq0hLOhMT8b');
-      var data = doc.get();
+      var data = doc.get()
+        .then(data => doc.get())
+        .then(data => doc.set({
+          today: data.data().today + 20,
+          weekly: (data.data().weekly + (1/22)) * 100
+        }));
       console.log(data);
-      doc.set({
-        today: doc.data().today + 20,
-        weekly: (doc.data().weekly + (1/22)) * 100
-      });
+
     }
+
+
 
     render() {
         this.updateDatabase();

@@ -35,7 +35,7 @@ export default class TopSubBar extends React.Component {
   console.log(querySnapshot.docs[0].id);
   this.setState({
     today: querySnapshot.docs[0].data().today,
-    weekly: querySnapshot.docs[0].data().weekly
+    weekly: querySnapshot.docs[0].data().weekly,
     loading: false
   });
   }
