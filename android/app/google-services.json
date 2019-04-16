@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "384368924973",
+    "firebase_url": "https://choreboard-d7386.firebaseio.com",
+    "project_id": "choreboard-d7386",
+    "storage_bucket": "choreboard-d7386.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384368924973:android:e26a28a137eef39b",
+        "android_client_info": {
+          "package_name": "com.choreboardnew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384368924973-6vf0d4ofhfvkcqjujv6ed61e7tt3ku42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8RUQI5HhcZMIm5VYOzyy8yyWM3t9uJVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384368924973-6vf0d4ofhfvkcqjujv6ed61e7tt3ku42.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
