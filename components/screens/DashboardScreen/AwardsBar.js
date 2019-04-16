@@ -7,9 +7,10 @@ export default class AwardsBar extends React.Component {
   render() {
     return (
       <View style = {styles.container}>
+        <Text style = {styles.leaderboardText}>LEADERBOARD</Text>
         <View style = {styles.rowContainer}>
-          <Text style = {styles.giftText}><IconDie name = 'die-four' color = 'gray'></IconDie> Highest Player Points</Text>
-          <Text style = {styles.gameCategoryText}><Icon name = 'gift' color = 'gray'></Icon> 2 Extra Video Game Hours</Text>
+          <Text style = {styles.giftText}><IconDie name = 'die-four' color = '#3296ca' size = {20}></IconDie> Highest Player Points</Text>
+          <Text style = {styles.gameCategoryText}><Icon name = 'gift' color = '#3296ca' size = {20}></Icon> 2 Extra Video Game Hours</Text>
         </View>
       </View>
     )
@@ -21,8 +22,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'gainsboro',
-    width: '100%'
+    backgroundColor: 'white',
+    width: '100%',
+    padding: '3%'
   },
   rowContainer: {
     alignItems: 'center',
@@ -32,15 +34,18 @@ const styles = StyleSheet.create({
   },
   gameCategoryText: {
     alignSelf: 'flex-start',
-    color: 'gray',
-    fontSize: 16,
-    padding: '4%'
+    color: '#3296ca',
+    fontSize: 20,
   },
   giftText: {
     alignSelf: 'flex-end',
-    color: 'gray',
-    fontSize: 16,
-    padding: '4%'
-  }
+    color: '#3296ca',
+    fontSize: 20,
+  },
+  leaderboardText: {
+    color: '#3296ca',
+    alignSelf: 'center',
+    fontSize: 40,
+  },
   
 });

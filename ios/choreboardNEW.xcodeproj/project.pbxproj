@@ -60,6 +60,7 @@
 		8467890EC41748529ADF434B /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFA54999C6C4A4696038F1A /* libRNVectorIcons.a */; };
 		C6A617D535824894B64788D2 /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA81C63E89A4A88B66EFF79 /* libRNVectorIcons-tvOS.a */; };
 		6F57A13103B5486B9BD22946 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FA6899F90D44A3B3E88D09 /* libRNFirebase.a */; };
+		82DEB645DD5F499890278DC0 /* Marker Felt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB42ED978A09498F8F0A3A36 /* Marker Felt.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -392,6 +393,7 @@
 		1EA81C63E89A4A88B66EFF79 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; name = "libRNVectorIcons-tvOS.a"; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		DFE16B3864B348A7AFCD39F2 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; name = "RNFirebase.xcodeproj"; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		19FA6899F90D44A3B3E88D09 /* libRNFirebase.a */ = {isa = PBXFileReference; name = "libRNFirebase.a"; path = "libRNFirebase.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		CB42ED978A09498F8F0A3A36 /* Marker Felt.ttf */ = {isa = PBXFileReference; name = "Marker Felt.ttf"; path = "../assets/fonts/Marker Felt.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -685,6 +687,7 @@
 				26CC60CB6A2843669B002331 /* Octicons.ttf */,
 				074898335FAE4280B392FB5C /* SimpleLineIcons.ttf */,
 				312C8596821648CE801D8998 /* Zocial.ttf */,
+				CB42ED978A09498F8F0A3A36 /* Marker Felt.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1151,6 +1154,7 @@
 				4A1A5F58B1384514817699A7 /* Octicons.ttf in Resources */,
 				A10C5420585945C1B117955C /* SimpleLineIcons.ttf in Resources */,
 				AF8B183CE66744D28788193D /* Zocial.ttf in Resources */,
+				82DEB645DD5F499890278DC0 /* Marker Felt.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

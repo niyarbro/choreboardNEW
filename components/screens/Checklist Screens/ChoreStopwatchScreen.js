@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, KeyboardAvoidingView, View, Text, TouchableOpacity} from 'react-native';
 import {Stopwatch} from 'react-native-stopwatch-timer';
 import Icon from 'react-native-vector-icons/AntDesign';
+import NfcManager from 'react-native-nfc-manager';
 
 import TopBar from '../../mainbars/TopBar';
 import TopSubBar from '../../mainbars/TopSubBar';
@@ -14,12 +15,45 @@ export default class MessagesScreen extends React.Component {
 
     constructor(props) {
         super(props);
+        this._isMounted = false;
         this.state = {
             currTime: 0,
             isStarted: true,
             choreComplete: ''
         };
     }
+
+    componentDidMount() {
+        this._isMounted = true;
+        this._isMounted && NfcManager.registerTagEvent(this.tagFound)
+            .then(result => {
+                console.log('Waiting for scan to finish chore...', result);
+            })
+            .catch(err => {
+                console.warn('Detecting failed!', err);
+            });
+    }
+
+    componentWillUnmount() {
+        if (this._stateChangedSubscription) {
+            this._stateChangedSubscription.remove();
+        }
+        this._isMounted = false;
+    }
+
+    tagFound = tag => {
+        console.log(tag.id + " has been scanned again for chore completion!");
+        console.log('Time is ' + currTime);
+        this.setState({isStarted: false});
+        console.log(`${this.props.navigation.state.params.chore} has ended.`);
+        this._isMounted && NfcManager.unregisterTagEvent()
+            .then(result => {
+                this.props.navigation.navigate('TaskComplete', {
+                    choreComplete: this.props.navigation.state.params.chore
+                });
+            });
+    }
+
     
     render() {
         return (
@@ -79,9 +113,11 @@ const styles = StyleSheet.create({
     headerContainer: {
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: 'lightgray',
+        backgroundColor: 'white',
         width: '100%',
-        padding: '3%'
+        padding: '3%',
+        borderBottomColor: '#3296ca',
+        borderBottomWidth: 2
       },
     rowContainer: {
         alignItems: 'center',
@@ -91,7 +127,7 @@ const styles = StyleSheet.create({
     },
     headerText: {
         flex: 1,
-        color: '#009986',
+        color: '#3296ca',
         alignSelf: 'flex-start',
         fontWeight: 'bold',
         fontSize: 25
@@ -111,7 +147,7 @@ const stopwatchStyle = {
         width: '100%'
     },
     text: {
-        color: 'gray',
+        color: '#3296ca',
         fontSize: 100
     }
 };

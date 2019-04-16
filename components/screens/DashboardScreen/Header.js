@@ -5,14 +5,9 @@ export default class Header extends React.Component {
   render() {
     return (
       <View style = {styles.container}>
-        <View style = {styles.rowContainer}>
-          <Text style = {styles.familyText}>GRUBER FAMILY</Text>
-          <Text style = {styles.timeRemainingText}>TIME REMAINING</Text>
-        </View>
-        <View style = {styles.rowContainer}>
-          <Text style = {styles.leaderboardText}>LEADERBOARD</Text>
+          
+
           <Text style = {styles.timeText}>3D : 10H : 32M</Text>
-        </View>
       </View>
     )
   }
@@ -23,7 +18,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'lightgray',
+    backgroundColor: 'white',
     width: '100%',
     padding: '4%'
   },
@@ -43,11 +38,6 @@ const styles = StyleSheet.create({
       alignSelf: 'flex-end',
       fontWeight: 'bold',
       flexDirection: 'row',
-  },
-  leaderboardText: {
-    color: 'gray',
-    alignSelf: 'flex-start',
-    fontSize: 20
   },
   timeText: {
     color: 'gray',
