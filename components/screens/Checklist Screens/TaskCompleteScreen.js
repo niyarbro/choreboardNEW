@@ -23,7 +23,7 @@ export default class TaskCompleteScreen extends React.Component {
         .then(data => doc.get())
         .then(data => doc.set({
           today: data.data().today + 20,
-          weekly: (data.data().weekly + (1/22)) * 100
+          weekly: (data.data().weekly + (1/22) * 100)
         }));
       console.log(data);
 
